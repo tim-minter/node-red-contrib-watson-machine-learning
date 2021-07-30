@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 IBM Corp.
+ * Copyright 2021 IBM Corp.
  *
  * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
@@ -134,7 +134,8 @@ module.exports = function(RED) {
     return new Promise(function resolver(resolve, reject) {
       var token = null;
       //let uriAddress = connectionNode.host + '/v3/identity/token';
-      let uriAddress = "https://iam.bluemix.net/oidc/token";
+      //let uriAddress = "https://iam.bluemix.net/oidc/token";
+      let uriAddress = "https://iam.cloud.ibm.com/identity/token";
       let IBM_Cloud_IAM_uid = "bx";
       let IBM_Cloud_IAM_pwd = "bx";
 
