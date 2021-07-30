@@ -119,7 +119,7 @@ module.exports = function(RED) {
         errorMsg = 'No Host set in configuration';
       } else if (!connectionNode.apikey) {
         errorMsg = 'No API Key set in configuration';
-      } else if (!connectionNode.instanceid) {
+      } else if (!connectionNode.spaceid) {
         errorMsg = 'No Access Key set in configuration';
       }
 
@@ -169,7 +169,7 @@ module.exports = function(RED) {
     return executeRequestV4Style(uriAddress, t, null);
   }
 
-  function executeRequestV4Style(uriAddress, t, instanceid) {
+  function executeRequestV4Style(uriAddress, t, spaceid) {
     return new Promise(function resolver(resolve, reject) {
       let reqObject = {
         uri: uriAddress,
@@ -179,8 +179,8 @@ module.exports = function(RED) {
         }
       };
 
-      if (instanceid) {
-        reqObject.headers = {'ML-Instance-ID' : instanceid};
+      if (spaceid) {
+        reqObject.headers = {'ML-Instance-ID' : spaceid};
       }
 
       request(reqObject, (error, response, body) => {
@@ -200,7 +200,7 @@ module.exports = function(RED) {
     return executeDeleteRequestV4Style(uriAddress, t, null);
   }
 
-  function executeDeleteRequestV4Style(uriAddress, t, instanceid) {
+  function executeDeleteRequestV4Style(uriAddress, t, spaceid) {
     return new Promise(function resolver(resolve, reject){
       let reqObject = {
         uri: uriAddress,
@@ -210,8 +210,8 @@ module.exports = function(RED) {
         }
       };
 
-      if (instanceid) {
-        reqObject.headers = {'ML-Instance-ID' : instanceid};
+      if (spaceid) {
+        reqObject.headers = {'ML-Instance-ID' : spaceid};
       }
 
       request(reqObject, (error, response, body) => {
@@ -231,7 +231,7 @@ module.exports = function(RED) {
   }
 
 
-  function executePostRequestV4Style(uriAddress, t, p, instanceid) {
+  function executePostRequestV4Style(uriAddress, t, p, spaceid) {
     return new Promise(function resolver(resolve, reject) {
 
       let reqObject = {
@@ -247,8 +247,8 @@ module.exports = function(RED) {
         body: JSON.stringify(p)
       };
 
-      if (instanceid) {
-        reqObject.headers = {'ML-Instance-ID' : instanceid};
+      if (spaceid) {
+        reqObject.headers = {'ML-Instance-ID' : spaceid};
       }
 
       request(reqObject, (error, response, body) => {
@@ -279,7 +279,7 @@ module.exports = function(RED) {
   }
 
   function executeInstanceDetails(cn, t, params) {
-    var uriAddress = cn.host + '/v3/wml_instances/' + cn.instanceid;
+    var uriAddress = cn.host + '/v3/wml_instances/' + cn.spaceid;
     return executeRequest(uriAddress, t);
   }
 
@@ -345,61 +345,61 @@ module.exports = function(RED) {
   }
 
   function executeListModels(cn, t, params) {
-    var uriAddress = cn.host + '/v3/wml_instances/' + cn.instanceid
+    var uriAddress = cn.host + '/v3/wml_instances/' + cn.spaceid
                               + '/published_models';
     return executeRequest(uriAddress, t);
   }
 
   function executeListModelsV4(cn, t, params) {
     var uriAddress = cn.host + '/v4/models';
-    return executeRequestV4Style(uriAddress, t, cn.instanceid);
+    return executeRequestV4Style(uriAddress, t, cn.spaceid);
   }
 
   function executeGetModelDetails(cn, t, params) {
-    var uriAddress = cn.host + '/v3/wml_instances/' + cn.instanceid
+    var uriAddress = cn.host + '/v3/wml_instances/' + cn.spaceid
                               + '/published_models/' + params.model;
     return executeRequest(uriAddress, t);
   }
 
   function executeGetModelDetailsV4(cn, t, params) {
     var uriAddress = cn.host + '/v4/models/' + params.model;
-    return executeRequestV4Style(uriAddress, t, cn.instanceid);
+    return executeRequestV4Style(uriAddress, t, cn.spaceid);
   }
 
   function executeListModelMetrics(cn, t, params) {
-    var uriAddress = cn.host + '/v3/wml_instances/' + cn.instanceid
+    var uriAddress = cn.host + '/v3/wml_instances/' + cn.spaceid
                               + '/published_models/' + params.model
                               + '/evaluation_metrics';
     return executeRequest(uriAddress, t);
   }
 
   function executeListLearningIterations(cn, t, params) {
-    var uriAddress = cn.host + '/v3/wml_instances/' + cn.instanceid
+    var uriAddress = cn.host + '/v3/wml_instances/' + cn.spaceid
                               + '/published_models/' + params.model
                               + '/learning_iterations';
     return executeRequest(uriAddress, t);
   }
 
   function executeListAllDeployments(cn, t, params) {
-    var uriAddress = cn.host + '/v3/wml_instances/' + cn.instanceid
+    var uriAddress = cn.host + '/v3/wml_instances/' + cn.spaceid
                               + '/deployments';
     return executeRequest(uriAddress, t);
   }
 
   function executeListAllDeploymentsV4(cn, t, params) {
     var uriAddress = cn.host + '/v4/deployments';
-    return executeRequestV4Style(uriAddress, t, cn.instanceid);
+    return executeRequestV4Style(uriAddress, t, cn.spaceid);
   }
 
   function executeListModelDeployments(cn, t, params) {
-    var uriAddress = cn.host + '/v3/wml_instances/' + cn.instanceid
+    var uriAddress = cn.host + '/v3/wml_instances/' + cn.spaceid
                               + '/published_models/' + params.model
                               + '/deployments';
     return executeRequest(uriAddress, t);
   }
 
   function executeGetDeploymentDetails(cn, t, params) {
-    var uriAddress = cn.host + '/v3/wml_instances/' + cn.instanceid
+    var uriAddress = cn.host + '/v3/wml_instances/' + cn.spaceid
                               + '/published_models/' + params.model
                               + '/deployments/' + params.deployment;
     return executeRequest(uriAddress, t);
@@ -407,11 +407,11 @@ module.exports = function(RED) {
 
   function executeGetDeploymentDetailsV4(cn, t, params) {
     var uriAddress = cn.host + '/v4/deployments/' + params.deployment;
-    return executeRequestV4Style(uriAddress, t, cn.instanceid);
+    return executeRequestV4Style(uriAddress, t, cn.spaceid);
   }
 
   function executeDeleteDeployment(cn, t, params) {
-    var uriAddress = cn.host + '/v3/wml_instances/' + cn.instanceid
+    var uriAddress = cn.host + '/v3/wml_instances/' + cn.spaceid
                               + '/published_models/' + params.model
                               + '/deployments/' + params.deployment;
     return executeDeleteRequest(uriAddress, t);
@@ -419,18 +419,18 @@ module.exports = function(RED) {
 
   function executeDeleteDeploymentV4(cn, t, params) {
     var uriAddress = cn.host + '/v4/deployments/' + params.deployment;
-    return executeDeleteRequestV4Style(uriAddress, t, cn.instanceid);
+    return executeDeleteRequestV4Style(uriAddress, t, cn.spaceid);
   }
 
   function executeDeleteModel(cn, t, params) {
-    var uriAddress = cn.host + '/v3/wml_instances/' + cn.instanceid
+    var uriAddress = cn.host + '/v3/wml_instances/' + cn.spaceid
                               + '/published_models/' + params.model;
     return executeDeleteRequest(uriAddress, t);
   }
 
   function executeDeleteModelV4(cn, t, params) {
     var uriAddress = cn.host + '/v4/models/' + params.model;
-    return executeDeleteRequestV4Style(uriAddress, t, cn.instanceid);
+    return executeDeleteRequestV4Style(uriAddress, t, cn.spaceid);
   }
 
   function executeRunPrediction(cn, t, params) {
@@ -450,7 +450,7 @@ module.exports = function(RED) {
     }
 
 
-    return executePostRequestV4Style(uriAddress, t, v4Params, cn.instanceid);
+    return executePostRequestV4Style(uriAddress, t, v4Params, cn.spaceid);
   }
 
   function executeUnknownMethod(cn, t, params) {
