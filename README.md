@@ -7,10 +7,22 @@ Use the manage palette option to install this node
 
 ## Usage
 This node allows you to run predictions against a deployed
-machine learning model.
+machine learning model along with the ability to call various other API methods for example:
+
+* List published models
+* Get model details
+* List deployments
+* Get deployment details
+* Delete model
+* Delete deployment
+* Get service instance details
+* List model metrics
+* List model learning iterations
 
 ## Configuration
 To make a connection to your Watson Machine Learning service the node will need a connection configuration. Create a configuration by double selecting a node.
+
+The Endpoint to use will depend on the location of the Machine Learning service your created in IBM Cloud. You can see this information in various places including the deployment section of Watson Studio. Another place is in the Resource list in your IBM Cloud account. For example if the location of the resource is London the endpoint will be ```https://eu-gb.ml.cloud.ibm.com/ml``` for Dallas is will be ```https://us-south.ml.cloud.ibm.com```. To view the corresponding endpoint for all locations click [here](https://cloud.ibm.com/apidocs/machine-learning#endpoint-url).
 
 ### Input
 For most modes the node `msg.payload` is not required. The node needs to be configured
@@ -64,4 +76,4 @@ For simple typos and fixes please just raise an issue pointing out our mistakes.
 
 ## Copyright and license
 
-Copyright 2018, 2020 IBM Corp. under the Apache 2.0 license.
+Copyright 2018, 2020, 2021 IBM Corp. under the Apache 2.0 license.
